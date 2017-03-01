@@ -1,25 +1,13 @@
 (function() {
   "use strict";
 
-  angular.module("app").controller("peopleCtrl", function($scope) {
+  angular.module("app").controller("peopleCtrl", function($scope, $http) {
 
-    $scope.people = [
-      {
-        name: "Bob Marley",
-        bio: "Singer from Jamaica",
-        bioVisible: false
-      },
-      {
-        name: "Chris Brown",
-        bio: "Singer with a bad past",
-        bioVisible: false
-      },
-      {
-        name: "Ivan Buravan",
-        bio: "Singer from Rwanda!",
-        bioVisible: false
-      }
-    ]
+    $scope.setup = function() {
+      $http.get("/api/v1/people.json").then(function(response) {
+        $scope.people = response.data;
+      });
+    }    
 
     $scope.toggleBio = function(person) {
       person.bioVisible = !person.bioVisible;
