@@ -14,10 +14,17 @@
     }
 
     $scope.addPerson = function(name, bio) {
-      $scope.people.push({name: name, bio: bio, bioVisible: false});
+      var person = {
+        name: name,
+        bio: bio
+      };
+      $http.post("/api/v1/people.json", person).then(function(response) {
+        $scope.people.push(response.data);
+      });
     }
 
     $scope.deletePerson = function(index) {
+      //$http.delete(......)
       $scope.people.splice(index, 1);
     }
 
