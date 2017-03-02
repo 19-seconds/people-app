@@ -6,6 +6,12 @@
     <div ng-repeat="person in people">
       <h2 ng-click="toggleBio(person)">{{person.name}}</h2>
       <p ng-if="person.bioVisible">{{person.bio}}</p>
+
+      <div>
+        Name: <input ng-model="person.name" ng-keyup="updatePerson(person)">
+        Bio: <input ng-model="person.bio" ng-keyup="updatePerson(person)">
+  
+      </div>
       <button ng-click="deletePerson(person, $index)">Delete Artist</button>
     </div>
     Add Person:

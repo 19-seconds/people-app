@@ -23,6 +23,13 @@
       });
     }
 
+    $scope.updatePerson = function(person) {
+      $http.patch("/api/v1/people/" + person.id + ".json", person).then(function(response) {
+        var index = $scope.people.indexOf(person);
+        $scope.people[index] = response.data;
+      });
+    }
+
     $scope.deletePerson = function(person, index) {
       $http.delete("/api/v1/people/" + person.id + ".json").then(function(response){
         $scope.people.splice(index, 1);

@@ -11,6 +11,13 @@ class Api::V1::PeopleController < ApplicationController
     render json: @person
   end
 
+  def update
+    @person = Person.find_by(id: params[:id])
+    @person.update_attributes(name: params[:name], bio: params[:bio])
+    @person.save
+    render json: @person
+  end
+
   def destroy
     @person = Person.find_by(id: params[:id])
     @person.destroy
