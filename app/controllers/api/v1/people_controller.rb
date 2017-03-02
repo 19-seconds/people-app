@@ -11,4 +11,10 @@ class Api::V1::PeopleController < ApplicationController
     render json: @person
   end
 
+  def destroy
+    @person = Person.find_by(id: params[:id])
+    @person.destroy
+    render json: @person
+  end
+
 end

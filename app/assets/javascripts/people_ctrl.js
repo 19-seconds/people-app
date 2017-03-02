@@ -23,9 +23,10 @@
       });
     }
 
-    $scope.deletePerson = function(index) {
-      //$http.delete(......)
-      $scope.people.splice(index, 1);
+    $scope.deletePerson = function(person, index) {
+      $http.delete("/api/v1/people/" + person.id + ".json").then(function(response){
+        $scope.people.splice(index, 1);
+      });
     }
 
 
