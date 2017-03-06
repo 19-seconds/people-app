@@ -1,27 +1,45 @@
-<div ng-app="app">
 
-  <div ng-controller="peopleCtrl" ng-init="setup()">
-  <p></p> 
-     Filter Artists: <input ng-model="filterQuery">
-     <button ng-click="toggleOrder('name')">Sort By Name</button>
-     <button ng-click="toggleOrder('bio')">Sort By Bio</button>
-    <h1>Number of Bios: {{people.length}}</h1>
-    <div ng-repeat="person in people | filter: filterQuery | orderBy:orderAttribute">
-      <h2 ng-click="toggleBio(person)">{{person.name}}</h2>
-      <p ng-if="person.bioVisible">{{person.bio}}</p>
-
-<!--       <div>
-        Name: <input ng-model="person.name" ng-keyup="updatePerson(person)">
-        Bio: <input ng-model="person.bio" ng-keyup="updatePerson(person)">
-  
-      </div> -->
-      <button ng-click="deletePerson(person, $index)">Delete Artist</button>
-    </div>
-    Add Person:
-    <div>
-      Name: <input ng-model="personName">
-      Bio: <input ng-model="personBio">
-      <button ng-click="addPerson(personName, personBio)">Add Person</button>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div ng-app="app">
+      <div ng-controller="peopleCtrl" ng-init="setup()">
+        <div>
+          <datalist id="names">
+            <option ng-repeat="person in people">{{person.name}} - {{person.bio}}</option>
+          </datalist>
+        </div>
+        <div class="form-group">
+          Filter: <input ng-model="filterQuery" list="names" class="form-control">
+        </div>
+        <table class="table">
+          <tr>
+            <th ng-click="toggleOrder('name')">Name</th>
+            <th ng-click="toggleOrder('bio')">Bio</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+          <tr ng-repeat="person in people | filter: filterQuery | orderBy:orderAttribute:descending">
+            <td>{{person.name}}</td>
+            <td>{{person.bio}}</td>
+            <td>
+              <div class="form-group">
+              Name: <input ng-model="person.name" ng-keyup="updatePerson(person)" class="form-control">
+              Bio: <input ng-model="person.bio" ng-keyup="updatePerson(person)" class="form-control">
+              </div>
+            </td>
+            <td><button ng-click="deletePerson(person, $index)" class="btn btn-danger">Delete Artist</button></td>
+          </tr>
+        </table>
+        <h3>Add New Person</h3>
+        <div class="form-group">
+          Name: <input ng-model="newName" class="form-control">
+        </div>
+        <div class="form-group">
+          Bio: <input ng-model="newBio" class="form-control">
+        </div>
+        <button ng-click="addPerson(newName, newBio)">Add Person</button>
+      </div>
     </div>
   </div>
 </div>
